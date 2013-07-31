@@ -13,6 +13,8 @@ namespace Madd0.AzureStorageDriver
     using System.Reflection;
     using LINQPad.Extensibility.DataContext;
     using Madd0.AzureStorageDriver.Properties;
+    using Microsoft.WindowsAzure.StorageClient;
+    using System.Linq;
 
     /// <summary>
     /// LINQPad dynamic driver that lets users connect to an Azure Table Storage account.
@@ -40,6 +42,8 @@ namespace Madd0.AzureStorageDriver
         /// <returns>The text to display in the root Schema Explorer node for a given connection info</returns>
         public override string GetConnectionDescription(IConnectionInfo connectionInfo)
         {
+            var temp = new TableServiceContext("", null);
+            temp.CreateQuery<object>("").AsTableServiceQuery().ToList();
             return new StorageAccountProperties(connectionInfo).DisplayName;
         }
 
